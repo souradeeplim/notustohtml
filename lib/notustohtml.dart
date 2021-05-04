@@ -98,16 +98,17 @@ class _NotusHtmlEncoder extends Converter<Delta, String> {
       Operation op = iterator.next();
       bool hr = false;
       String source;
-      if (op.data is BlockEmbed) {
-        final embed = op.data as BlockEmbed;
-        if (embed.type == "hr") {
-          op = Operation.insert("");
-          hr = true;
-        } else if (embed.type == "image") {
-          op = Operation.insert("");
-          source = embed.data["source"];
-        }
-      } else if (op.data is Map) {
+      // if (op.data is BlockEmbed) {
+      //   final embed = op.data as BlockEmbed;
+      //   if (embed.type == "hr") {
+      //     op = Operation.insert("");
+      //     hr = true;
+      //   } else if (embed.type == "image") {
+      //     op = Operation.insert("");
+      //     source = embed.data["source"];
+      //   }
+      // } 
+     if (op.data is Map) {
         final map = op.data as Map;
         if (map["_type"] == "hr") {
           op = Operation.insert("");
@@ -218,11 +219,14 @@ class _NotusHtmlEncoder extends Converter<Delta, String> {
       _writeBoldTag(buffer, close: close);
     } else if (attribute == NotusAttribute.italic) {
       _writeItalicTag(buffer, close: close);
-    } else if (attribute == NotusAttribute.underline) {
-      _writeTag(buffer, close: close, tag: "u");
-    } else if (attribute == NotusAttribute.strikethrough) {
-      _writeTag(buffer, close: close, tag: "del");
-    } else if (attribute.key == NotusAttribute.link.key) {
+    }
+    // else if (attribute == NotusAttribute.) {
+    //   _writeTag(buffer, close: close, tag: "u");
+    // }
+    //  else if (attribute == NotusAttribute.strikethrough) {
+    //   _writeTag(buffer, close: close, tag: "del");
+    // }
+    else if (attribute.key == NotusAttribute.link.key) {
       _writeLinkTag(buffer, attribute as NotusAttribute<String>, close: close);
     } else if (attribute.key == NotusAttribute.heading.key) {
       _writeHeadingTag(buffer, attribute as NotusAttribute<int>, close: close);
@@ -382,13 +386,13 @@ class _NotusHtmlDecoder extends Converter<String, Delta> {
       }
       return delta;
     } else if (type == "embed") {
-      if (element.localName == "img") {
-        delta = delta
-          ..insert(BlockEmbed.image(element.attributes["src"]).toJson());
-      }
-      if (element.localName == "hr") {
-        delta = delta..insert(BlockEmbed.horizontalRule.toJson());
-      }
+      // if (element.localName == "img") {
+      //   delta = delta
+      //     ..insert(BlockEmbed.image(element.attributes["src"]).toJson());
+      // }
+      // if (element.localName == "hr") {
+      //   delta = delta..insert(BlockEmbed.horizontalRule.toJson());
+      // }
       return delta;
     } else {
       if (attributes == null) attributes = {};
