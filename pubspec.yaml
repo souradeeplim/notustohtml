@@ -13,7 +13,7 @@ dependencies:
       url: git://github.com/beerstorm-net/zefyr.git
       path: packages/notus/
   quill_delta: ^2.0.0
-  html: ^0.14.0
+  html:
 
 dev_dependencies:
   test:
